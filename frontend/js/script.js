@@ -18,3 +18,38 @@ nextBtn.addEventListener("click", () => {
     currentImage = (currentImage + 1) % heroImages.length;
     updateImage();
 });
+
+const contactForm = document.getElementById("contactform");
+
+const fields = [
+    { input: document.getElementById("contactName"), error: document.getElementById("ContactNameError"), message: "el nombre es obligatorio" },
+    { input: document.getElementById("contactPhone"), error: document.getElementById("ContactPhoneError"), message: "el teléfono es obligatorio" },
+    { input: document.getElementById("contactEmail"), error: document.getElementById("ContactEmailError"), message: "el correo electrónico es obligatorio" },
+    { input: document.getElementById("contactSubject"), error: document.getElementById("ContactSubjectError"), message: "el asunto es obligatorio" },
+    { input: document.getElementById("contactMessage"), error: document.getElementById("ContactMessageError"), message: "el mensaje es obligatorio" }
+];
+
+function validateFields(field){
+    if (field.input.value.trim() === ""){
+        field.error.textContent = field.message;
+        field.input.classList.add("is-invalid");
+        return false;
+    }
+
+    field.error.textContent = "";
+    field.input.classList.remove("is-invalid");
+    return true;
+
+}
+
+contactForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    let isValid = true;
+
+    fields.forEach(field => {
+        if (!validateFields(field)){
+            isValid = false;
+        }
+    });
+
+});
